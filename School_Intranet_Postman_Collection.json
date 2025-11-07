@@ -1,0 +1,468 @@
+{
+	"info": {
+		"_postman_id": "school-intranet-api",
+		"name": "School Intranet API",
+		"description": "Colección completa de endpoints para el sistema de intranet escolar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. ESTUDIANTES",
+			"item": [
+				{
+					"name": "GET - Obtener todos los estudiantes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/estudiantes",
+							"host": ["{{base_url}}"],
+							"path": ["estudiantes"]
+						}
+					}
+				},
+				{
+					"name": "GET - Obtener estudiante por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/estudiantes/{{student_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["estudiantes", "{{student_id}}"]
+						}
+					}
+				},
+				{
+					"name": "POST - Crear nuevo estudiante",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Juan\",\n    \"apellido\": \"Pérez\",\n    \"edad\": 16,\n    \"grado\": \"10mo\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/estudiantes",
+							"host": ["{{base_url}}"],
+							"path": ["estudiantes"]
+						}
+					}
+				},
+				{
+					"name": "PUT - Actualizar estudiante",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Juan Carlos\",\n    \"apellido\": \"Pérez\",\n    \"edad\": 17,\n    \"grado\": \"11mo\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/estudiantes/{{student_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["estudiantes", "{{student_id}}"]
+						}
+					}
+				},
+				{
+					"name": "DELETE - Eliminar estudiante",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/estudiantes/{{student_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["estudiantes", "{{student_id}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. CURSOS",
+			"item": [
+				{
+					"name": "GET - Obtener todos los cursos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/courses",
+							"host": ["{{base_url}}"],
+							"path": ["courses"]
+						}
+					}
+				},
+				{
+					"name": "GET - Obtener cursos por institución",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/courses/tenant/{{tenant_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["courses", "tenant", "{{tenant_id}}"]
+						}
+					}
+				},
+				{
+					"name": "GET - Obtener curso por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/courses/{{course_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["courses", "{{course_id}}"]
+						}
+					}
+				},
+				{
+					"name": "POST - Crear nuevo curso",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tenantId\": \"{{tenant_id}}\",\n    \"name\": \"Matemáticas Avanzadas\",\n    \"code\": \"MATH-101\",\n    \"teacherId\": \"{{teacher_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses",
+							"host": ["{{base_url}}"],
+							"path": ["courses"]
+						}
+					}
+				},
+				{
+					"name": "PUT - Actualizar curso",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Matemáticas Superiores\",\n    \"code\": \"MATH-102\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/courses/{{course_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["courses", "{{course_id}}"]
+						}
+					}
+				},
+				{
+					"name": "DELETE - Eliminar curso",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/courses/{{course_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["courses", "{{course_id}}"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "3. ASISTENCIA",
+			"item": [
+				{
+					"name": "GET - Obtener todas las asistencias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendance",
+							"host": ["{{base_url}}"],
+							"path": ["attendance"]
+						}
+					}
+				},
+				{
+					"name": "GET - Asistencias por curso",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendance/course/{{course_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "course", "{{course_id}}"]
+						}
+					}
+				},
+				{
+					"name": "GET - Asistencias por estudiante",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendance/student/{{student_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "student", "{{student_id}}"]
+						}
+					}
+				},
+				{
+					"name": "GET - Asistencias por rango de fechas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/attendance/date-range?startDate=2024-01-01&endDate=2024-01-31",
+							"host": ["{{base_url}}"],
+							"path": ["attendance", "date-range"],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-01-31"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "POST - Crear registro de asistencia",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tenantId\": \"{{tenant_id}}\",\n    \"courseId\": \"{{course_id}}\",\n    \"studentId\": \"{{student_id}}\",\n    \"date\": \"2024-01-15T08:00:00.000Z\",\n    \"status\": \"present\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/attendance",
+							"host": ["{{base_url}}"],
+							"path": ["attendance"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "4. EVALUACIONES",
+			"item": [
+				{
+					"name": "GET - Obtener todas las evaluaciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/evaluations",
+							"host": ["{{base_url}}"],
+							"path": ["evaluations"]
+						}
+					}
+				},
+				{
+					"name": "POST - Crear nueva evaluación",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tenantId\": \"{{tenant_id}}\",\n    \"courseId\": \"{{course_id}}\",\n    \"title\": \"Examen Parcial de Matemáticas\",\n    \"maxScore\": 100,\n    \"date\": \"2024-02-15T10:00:00.000Z\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/evaluations",
+							"host": ["{{base_url}}"],
+							"path": ["evaluations"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "5. CALIFICACIONES",
+			"item": [
+				{
+					"name": "GET - Obtener todas las calificaciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/grades",
+							"host": ["{{base_url}}"],
+							"path": ["grades"]
+						}
+					}
+				},
+				{
+					"name": "POST - Crear nueva calificación",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tenantId\": \"{{tenant_id}}\",\n    \"evaluationId\": \"{{evaluation_id}}\",\n    \"studentId\": \"{{student_id}}\",\n    \"score\": 85\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/grades",
+							"host": ["{{base_url}}"],
+							"path": ["grades"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "6. INSCRIPCIONES",
+			"item": [
+				{
+					"name": "GET - Obtener todas las inscripciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/enrollments",
+							"host": ["{{base_url}}"],
+							"path": ["enrollments"]
+						}
+					}
+				},
+				{
+					"name": "POST - Crear nueva inscripción",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tenantId\": \"{{tenant_id}}\",\n    \"studentId\": \"{{student_id}}\",\n    \"courseId\": \"{{course_id}}\",\n    \"period\": \"2024-1\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/enrollments",
+							"host": ["{{base_url}}"],
+							"path": ["enrollments"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "7. USUARIOS",
+			"item": [
+				{
+					"name": "GET - Obtener todos los usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": ["{{base_url}}"],
+							"path": ["users"]
+						}
+					}
+				},
+				{
+					"name": "POST - Crear nuevo usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Profesor García\",\n    \"email\": \"profesor.garcia@escuela.com\",\n    \"password\": \"password123\",\n    \"role\": \"teacher\",\n    \"tenantId\": \"{{tenant_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": ["{{base_url}}"],
+							"path": ["users"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "8. INSTITUCIONES",
+			"item": [
+				{
+					"name": "GET - Obtener todas las instituciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tenants",
+							"host": ["{{base_url}}"],
+							"path": ["tenants"]
+						}
+					}
+				},
+				{
+					"name": "POST - Crear nueva institución",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Escuela Primaria San José\",\n    \"domain\": \"san-jose.edu\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/tenants",
+							"host": ["{{base_url}}"],
+							"path": ["tenants"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000/api"
+		}
+	]
+}
