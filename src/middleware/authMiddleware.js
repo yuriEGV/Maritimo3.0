@@ -19,6 +19,7 @@ function authMiddleware(req, res, next) {
         req.user = payload;
         return next();
     } catch (err) {
+        console.error('Error JWT:', err.message);
         return res.status(401).json({ message: 'Token inválido' });
     }
 }

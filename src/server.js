@@ -1,107 +1,3 @@
-/*const express = require('express');
-const apiRoutes = require('./routes/index');
-const dbConfig = require('./config/db');
-require('dotenv').config();
-const morgan = require('morgan');
-const path = require('path');
-const fs = require('fs');
-const errorMiddleware = require('./middleware/errorMiddleware');
-
-const app = express();
-
-// Middleware
-app.use(express.json());
-app.use(morgan('dev'));
-// serve stored files
-const storageDir = path.join(process.cwd(), 'storage');
-if (!fs.existsSync(storageDir)) {
-    fs.mkdirSync(storageDir);
-}
-app.use('/files', express.static(storageDir));
-
-// Rutas
-app.use('/api', apiRoutes);
-
-// Conexión a MongoDB
-dbConfig();
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
-
-// Error handler
-app.use(errorMiddleware);*/
-
-/*const express = require('express');
-const apiRoutes = require('./routes/index');
-const dbConfig = require('./config/db');
-require('dotenv').config();
-const morgan = require('morgan');
-const path = require('path');
-const fs = require('fs');
-const errorMiddleware = require('./middleware/errorMiddleware');
-
-const app = express();
-
-// Middleware
-app.use(express.json());
-app.use(morgan('dev'));
-
-// Serve stored files
-const storageDir = path.join(process.cwd(), 'storage');
-if (!fs.existsSync(storageDir)) {
-  fs.mkdirSync(storageDir);
-}
-app.use('/files', express.static(storageDir));
-
-// Routes
-app.use('/api', apiRoutes);
-
-// Database connection
-dbConfig();
-
-// Error handler
-app.use(errorMiddleware);
-
-// Export for Vercel
-module.exports = app;*/
-
-/*const express = require('express');
-const apiRoutes = require('./routes/index');
-const dbConfig = require('./config/db');
-require('dotenv').config();
-const morgan = require('morgan');
-const path = require('path');
-const fs = require('fs');
-const errorMiddleware = require('./middleware/errorMiddleware');
-
-const app = express();
-
-// Middleware
-app.use(express.json());
-app.use(morgan('dev'));
-
-// Serve stored files - ¡CAMBIO AQUÍ!
-const storageDir = path.join('/tmp', 'storage');
-if (!fs.existsSync(storageDir)) {
-  fs.mkdirSync(storageDir);
-}
-app.use('/files', express.static(storageDir));
-
-// Rutas
-app.use('/api', apiRoutes);
-
-// Conexión a MongoDB
-dbConfig();
-
-// Handler de errores
-app.use(errorMiddleware);
-
-// Export para Vercel (sin app.listen)
-module.exports = app;*/
-
-
 const express = require('express');
 const apiRoutes = require('./routes/index');
 const dbConfig = require('./config/db');
@@ -118,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Storage compatible con cualquier sistema
+// Storage compatible con cualquier entorno
 let storageDir;
 
 if (process.env.VERCEL || process.env.NOW_REGION) {
@@ -134,16 +30,34 @@ if (!fs.existsSync(storageDir)) {
 }
 app.use('/files', express.static(storageDir));
 
+// Conexión a MongoDB (solo si no está ya conectada)
+(async () => {
+  try {
+    await dbConfig();
+    console.log('✅ Conectado a MongoDB');
+  } catch (err) {
+    console.error('❌ Error conectando a MongoDB:', err.message);
+  }
+})();
+
 // Rutas
 app.use('/api', apiRoutes);
 
-// Conexión a MongoDB
-dbConfig();
+// Endpoint raíz para comprobar funcionamiento
+app.get('/', (req, res) => {
+  res.json({ message: 'API funcionando correctamente 🚀' });
+});
 
-// Handler de errores
+// Middleware de errores
 app.use(errorMiddleware);
+console.log('Servidor ejecutándose en http://localhost:5000');
+// Iniciar servidor solo en local
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+  });
+}
 
-// Export para Vercel (sin app.listen)
+// Export para Vercel
 module.exports = app;
-
-
